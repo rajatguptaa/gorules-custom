@@ -1,0 +1,174 @@
+[
+  {
+    "questionText": "What is your hair type?",
+    "questionType": "single-choice",
+    "category": "hair-type",
+    "tags": ["hair-type", "initial"],
+    "order": 1,
+    "isFirstQuestion": true,
+    "isActive": true,
+    "options": [
+      {
+        "id": "opt1",
+        "text": "Dry Hair",
+        "value": "dry",
+        "tags": ["dry", "hair-type"]
+      },
+      {
+        "id": "opt2",
+        "text": "Oily Hair",
+        "value": "oily",
+        "tags": ["oily", "hair-type"]
+      },
+      {
+        "id": "opt3",
+        "text": "Normal Hair",
+        "value": "normal",
+        "tags": ["normal", "hair-type"]
+      },
+      {
+        "id": "opt4",
+        "text": "Combination Hair",
+        "value": "combination",
+        "tags": ["combination", "hair-type"]
+      }
+    ]
+  },
+  {
+    "questionText": "Do you have dandruff or dry scalp?",
+    "questionType": "single-choice",
+    "category": "scalp-condition",
+    "tags": ["scalp", "dandruff", "dry-scalp"],
+    "order": 2,
+    "isActive": true,
+    "options": [
+      {
+        "id": "opt1",
+        "text": "Yes, I have dandruff",
+        "value": "dandruff",
+        "tags": ["dandruff", "scalp-problem"]
+      },
+      {
+        "id": "opt2",
+        "text": "Yes, I have dry scalp",
+        "value": "dry-scalp",
+        "tags": ["dry-scalp", "scalp-problem"]
+      },
+      {
+        "id": "opt3",
+        "text": "No, I don't have any scalp issues",
+        "value": "none",
+        "tags": ["healthy-scalp"]
+      }
+    ]
+  },
+  {
+    "questionText": "What is your main hair concern?",
+    "questionType": "single-choice",
+    "category": "hair-problem",
+    "tags": ["hair-problem", "concern"],
+    "order": 3,
+    "isActive": true,
+    "options": [
+      {
+        "id": "opt1",
+        "text": "Hair Loss",
+        "value": "hair-loss",
+        "tags": ["hair-loss", "problem"]
+      },
+      {
+        "id": "opt2",
+        "text": "Frizz",
+        "value": "frizz",
+        "tags": ["frizz", "problem"]
+      },
+      {
+        "id": "opt3",
+        "text": "Split Ends",
+        "value": "split-ends",
+        "tags": ["split-ends", "problem"]
+      },
+      {
+        "id": "opt4",
+        "text": "Lack of Volume",
+        "value": "no-volume",
+        "tags": ["volume", "problem"]
+      },
+      {
+        "id": "opt5",
+        "text": "None of the above",
+        "value": "none",
+        "tags": ["no-problem"]
+      }
+    ]
+  },
+  {
+    "questionText": "What is your hair goal?",
+    "questionType": "single-choice",
+    "category": "hair-goal",
+    "tags": ["goal", "objective"],
+    "order": 4,
+    "isActive": true,
+    "options": [
+      {
+        "id": "opt1",
+        "text": "Grow longer hair",
+        "value": "grow",
+        "tags": ["growth", "length"]
+      },
+      {
+        "id": "opt2",
+        "text": "Add volume and thickness",
+        "value": "volume",
+        "tags": ["volume", "thickness"]
+      },
+      {
+        "id": "opt3",
+        "text": "Reduce frizz and improve texture",
+        "value": "smooth",
+        "tags": ["smooth", "texture"]
+      },
+      {
+        "id": "opt4",
+        "text": "Maintain healthy hair",
+        "value": "maintain",
+        "tags": ["maintenance", "health"]
+      }
+    ]
+  },
+  {
+    "questionText": "How often do you wash your hair?",
+    "questionType": "single-choice",
+    "category": "lifestyle",
+    "tags": ["lifestyle", "washing", "routine"],
+    "order": 5,
+    "isActive": true,
+    "options": [
+      {
+        "id": "opt1",
+        "text": "Daily",
+        "value": "daily",
+        "tags": ["daily", "frequent"]
+      },
+      {
+        "id": "opt2",
+        "text": "Every 2-3 days",
+        "value": "every-2-3-days",
+        "tags": ["regular"]
+      },
+      {
+        "id": "opt3",
+        "text": "Once a week",
+        "value": "weekly",
+        "tags": ["weekly", "infrequent"]
+      },
+      {
+        "id": "opt4",
+        "text": "Less than once a week",
+        "value": "rarely",
+        "tags": ["rarely", "infrequent"]
+      }
+    ]
+  }
+]
+
