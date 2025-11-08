@@ -1,0 +1,101 @@
+%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >> endobj
+4 0 obj << /Length 3152 >>
+stream
+BT
+/F1 12 Tf
+72 760 Td
+(GoRules Custom – Project Brief) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Problem Statement) Tj
+0 -16 Td
+(Hair-care brands need a lightweight “rules-as-a-service” backend to evaluate treatment eligibility and drive adaptive questionnaires without rebuilding business logic every time requirements change. They require a secure API that lets non-engineers store JSON Logic rules, run them against customer telemetry, and orchestrate question flows that adapt to previous answers.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Solution Description) Tj
+0 -16 Td
+(- **Rules API**: CRUD endpoints let admins manage JSON Logic rules in MongoDB, then evaluate stored or ad-hoc rules through `/api/rules/:id/evaluate` or `/api/evaluate`. Evaluations rely on `json-logic-js`, so rule writers can express conditional checks with standard operators.) Tj
+0 -16 Td
+(- **Questionnaire Engine**: `/api/questions` endpoints store questions, options, and conditional routing \(`nextQuestionId` or JSON Logic\). Helpers expose “first question”, “next question” by answers, category filters, and drag/drop reordering.) Tj
+0 -16 Td
+(- **Platform Plumbing**: `server.js` boots Express, applies CORS, JSON parsing, logging, health checks, and Swagger docs so the service is discoverable and production-ready.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Simple DB Design) Tj
+0 -16 Td
+(The application uses two MongoDB collections with concise schemas:) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(rules) Tj
+0 -16 Td
+(| Field | Type | Purpose |) Tj
+0 -16 Td
+(| --- | --- | --- |) Tj
+0 -16 Td
+(| `name` | String | Human-readable rule label. |) Tj
+0 -16 Td
+(| `description` | String | Optional editor notes. |) Tj
+0 -16 Td
+(| `rule` | Object | JSON Logic payload evaluated at runtime. |) Tj
+0 -16 Td
+(| `createdAt` / `updatedAt` | Date | Auditing timestamps. |) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Indexes: `{ name: 1 }`, `{ createdAt: -1 }` to accelerate lookups and recent activity views.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(questions) Tj
+0 -16 Td
+(| Field | Type | Purpose |) Tj
+0 -16 Td
+(| --- | --- | --- |) Tj
+0 -16 Td
+(| `questionText` | String | Prompt shown to users. |) Tj
+0 -16 Td
+(| `questionType` | String enum | single-choice, multiple-choice, text, number. |) Tj
+0 -16 Td
+(| `options` | Array\\<Option\\> | Choices with `id`, `text`, `value`, optional `nextQuestionId`, `tags`. |) Tj
+0 -16 Td
+(| `category` | String enum | hair-type, scalp-condition, hair-problem, hair-goal, lifestyle, other. |) Tj
+0 -16 Td
+(| `order` | Number | Primary display ordering. |) Tj
+0 -16 Td
+(| `isActive` / `isFirstQuestion` | Boolean | Publish flag and questionnaire entry point. |) Tj
+0 -16 Td
+(| `conditionalLogic` | Object | JSON Logic evaluated against accumulated answers. |) Tj
+0 -16 Td
+(| `metadata` | Object | Extra UI hints \(e.g., helper text\). |) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Indexes: `{ category: 1, order: 1 }`, `{ isActive: 1, isFirstQuestion: 1 }`, `{ tags: 1 }` to keep traversal predictable even with large questionnaires.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(This pared-down schema keeps the learning curve low while covering the project’s core use cases: rule evaluation and adaptive questionnaires.) Tj
+ET
+endstream
+endobj
+5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000003444 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3514
+%%EOF

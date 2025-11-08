@@ -498,6 +498,283 @@ const options = {
             },
           },
         },
+        Answer: {
+          type: 'object',
+          properties: {
+            questionId: {
+              type: 'string',
+              example: '507f1f77bcf86cd799439011',
+            },
+            questionText: {
+              type: 'string',
+              example: 'What is your hair type?',
+            },
+            selectedOptionId: {
+              type: 'string',
+              example: 'opt1',
+            },
+            selectedOptionText: {
+              type: 'string',
+              example: 'Dry Hair',
+            },
+            answerValue: {
+              type: 'string',
+              example: 'dry',
+            },
+            answeredAt: {
+              type: 'string',
+              format: 'date-time',
+            },
+          },
+        },
+        Response: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+            },
+            sessionId: {
+              type: 'string',
+              example: '550e8400-e29b-41d4-a716-446655440000',
+            },
+            userId: {
+              type: 'string',
+            },
+            answers: {
+              type: 'array',
+              items: {
+                $ref: '#/components/schemas/Answer',
+              },
+            },
+            allAnswers: {
+              type: 'object',
+              description: 'Flattened object of all answers',
+            },
+            completed: {
+              type: 'boolean',
+              example: false,
+            },
+            completedAt: {
+              type: 'string',
+              format: 'date-time',
+            },
+            diagnosis: {
+              type: 'object',
+              description: 'Diagnosis object (populated)',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+            },
+          },
+        },
+        SaveAnswerRequest: {
+          type: 'object',
+          required: ['questionId'],
+          properties: {
+            sessionId: {
+              type: 'string',
+              description: 'Session ID (auto-generated if not provided)',
+            },
+            userId: {
+              type: 'string',
+              description: 'User ID (optional)',
+            },
+            questionId: {
+              type: 'string',
+              required: true,
+              example: '507f1f77bcf86cd799439011',
+            },
+            selectedOptionId: {
+              type: 'string',
+              example: 'opt1',
+            },
+            answerValue: {
+              type: 'string',
+              description: 'Answer value (for text/number questions)',
+            },
+            metadata: {
+              type: 'object',
+            },
+          },
+        },
+        GetDiagnosisRequest: {
+          type: 'object',
+          required: ['answers'],
+          properties: {
+            answers: {
+              type: 'object',
+              description: 'Flattened object of all answers',
+              example: {
+                opt1: 'dry',
+                opt2: 'dandruff',
+                '507f1f77bcf86cd799439011': 'dry',
+              },
+            },
+          },
+        },
+        Diagnosis: {
+          type: 'object',
+          required: ['name', 'conditions'],
+          properties: {
+            id: {
+              type: 'string',
+            },
+            name: {
+              type: 'string',
+              example: 'Dry Hair with Dandruff',
+            },
+            description: {
+              type: 'string',
+              example: 'Recommended treatment for dry hair with dandruff',
+            },
+            category: {
+              type: 'string',
+              enum: ['hair-care', 'scalp-treatment', 'product-recommendation', 'lifestyle', 'general'],
+              example: 'hair-care',
+            },
+            conditions: {
+              type: 'object',
+              description: 'JSON Logic conditions',
+              example: {
+                and: [
+                  { '==': [{ var: 'opt1' }, 'dry'] },
+                  { '==': [{ var: 'opt2' }, 'dandruff'] },
+                ],
+              },
+            },
+            recommendations: {
+              type: 'array',
+              items: {
+                type: 'string',
+              },
+              example: [
+                'Use anti-dandruff shampoo',
+                'Apply moisturizing conditioner',
+                'Avoid hot water',
+              ],
+            },
+            products: {
+              type: 'array',
+              items: {
+                type: 'string',
+              },
+              example: ['Shampoo A', 'Conditioner B'],
+            },
+            severity: {
+              type: 'string',
+              enum: ['low', 'medium', 'high', 'critical'],
+              example: 'medium',
+            },
+            priority: {
+              type: 'number',
+              example: 1,
+            },
+            isActive: {
+              type: 'boolean',
+              example: true,
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+            },
+          },
+        },
+        CreateDiagnosisRequest: {
+          type: 'object',
+          required: ['name', 'conditions'],
+          properties: {
+            name: {
+              type: 'string',
+              example: 'Dry Hair with Dandruff',
+            },
+            description: {
+              type: 'string',
+            },
+            category: {
+              type: 'string',
+              enum: ['hair-care', 'scalp-treatment', 'product-recommendation', 'lifestyle', 'general'],
+            },
+            conditions: {
+              type: 'object',
+              description: 'JSON Logic conditions',
+            },
+            recommendations: {
+              type: 'array',
+              items: {
+                type: 'string',
+              },
+            },
+            products: {
+              type: 'array',
+              items: {
+                type: 'string',
+              },
+            },
+            severity: {
+              type: 'string',
+              enum: ['low', 'medium', 'high', 'critical'],
+            },
+            priority: {
+              type: 'number',
+            },
+            isActive: {
+              type: 'boolean',
+            },
+            metadata: {
+              type: 'object',
+            },
+          },
+        },
+        UpdateDiagnosisRequest: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+            },
+            description: {
+              type: 'string',
+            },
+            category: {
+              type: 'string',
+            },
+            conditions: {
+              type: 'object',
+            },
+            recommendations: {
+              type: 'array',
+              items: {
+                type: 'string',
+              },
+            },
+            products: {
+              type: 'array',
+              items: {
+                type: 'string',
+              },
+            },
+            severity: {
+              type: 'string',
+            },
+            priority: {
+              type: 'number',
+            },
+            isActive: {
+              type: 'boolean',
+            },
+            metadata: {
+              type: 'object',
+            },
+          },
+        },
       },
     },
     tags: [
@@ -516,6 +793,14 @@ const options = {
       {
         name: 'Questions',
         description: 'Questionnaire management endpoints (CRUD operations)',
+      },
+      {
+        name: 'Responses',
+        description: 'User response and answer management endpoints',
+      },
+      {
+        name: 'Diagnoses',
+        description: 'Diagnosis and recommendation management endpoints',
       },
     ],
   },

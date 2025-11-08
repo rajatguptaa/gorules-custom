@@ -8,6 +8,8 @@ A rules-as-a-service API built with Node.js, Express, and MongoDB. This applicat
 - ✅ **Rule Evaluation** - Evaluate stored rules or ad-hoc rules against JSON data
 - ✅ **Questionnaire System** - Hair care questionnaire with conditional questions
 - ✅ **Question Management** - Admin endpoints for managing questions, options, and order
+- ✅ **Response Tracking** - Save user answers with session management
+- ✅ **Diagnosis Generation** - Automatic diagnosis and recommendations based on answers
 - ✅ **Conditional Logic** - Dynamic question flow based on previous answers
 - ✅ **MongoDB Integration** - Persistent storage using MongoDB with Mongoose ODM
 - ✅ **JSON Logic Support** - Powerful rule engine using json-logic-js
@@ -72,6 +74,20 @@ Before you begin, ensure you have the following installed:
    ```
 
 The API will be available at `http://localhost:3000`
+
+## Web UI
+
+A simple, modern web interface is included for testing the questionnaire:
+
+- **Access the UI**: Navigate to `http://localhost:3000` in your browser
+- **Features**: 
+  - Interactive questionnaire flow
+  - Progress tracking
+  - Automatic answer saving
+  - Diagnosis display with recommendations
+  - Responsive design for mobile and desktop
+
+The UI files are located in the `public/` directory and are automatically served by the Express server.
 
 ## API Documentation (Swagger)
 
@@ -526,9 +542,57 @@ Questions can be linked using:
 2. **Next Question**: Based on the selected option's `nextQuestionId` or tags, show "Do you have dandruff or dry scalp?"
 3. **Continue**: Based on answers, show relevant follow-up questions
 
+### Response and Diagnosis System
+
+The system automatically saves user responses and generates diagnoses based on their answers:
+
+1. **Save Answers**: Each answer is saved with a session ID
+2. **Complete Response**: After all questions, complete the response to generate diagnosis
+3. **Get Recommendations**: Receive personalized recommendations and product suggestions
+
+#### Save User Answer
+
+```http
+POST /api/responses
+Content-Type: application/json
+
+{
+  "questionId": "507f1f77bcf86cd799439011",
+  "selectedOptionId": "opt1",
+  "sessionId": "optional-session-id"
+}
+```
+
+#### Complete Response and Get Diagnosis
+
+```http
+POST /api/responses/{sessionId}/complete
+```
+
+**Response includes:**
+- All answers
+- Diagnosis with recommendations
+- Product suggestions
+- Severity level
+
+#### Get Diagnosis Without Saving
+
+```http
+POST /api/responses/diagnosis
+Content-Type: application/json
+
+{
+  "answers": {
+    "opt1": "dry",
+    "opt2": "dandruff"
+  }
+}
+```
+
 ### Example Files
 
 - **[Usage Examples](./examples/questionnaire-usage.md)** - Complete examples with curl commands, JavaScript, and Python code
+- **[Diagnosis Usage](./examples/diagnosis-usage.md)** - Examples for saving responses and generating diagnoses
 - **[Sequence Diagrams](./examples/sequence-diagram.md)** - Visual flow diagrams showing user flow, admin management, and API interactions
 - **[Database Schema](./docs/database-schema.md)** - Complete database schema documentation with field descriptions, indexes, and examples
 - **[Sample Questions](./examples/sample-questions.json)** - Sample question data for testing
@@ -577,6 +641,17 @@ curl -X POST http://localhost:3000/api/questions/next \
     "currentQuestionId": "507f1f77bcf86cd799439011",
     "selectedOptionId": "opt1"
   }'
+
+# Save user answer
+curl -X POST http://localhost:3000/api/responses \
+  -H "Content-Type: application/json" \
+  -d '{
+    "questionId": "507f1f77bcf86cd799439011",
+    "selectedOptionId": "opt1"
+  }'
+
+# Complete response and get diagnosis
+curl -X POST http://localhost:3000/api/responses/{sessionId}/complete
 ```
 
 ## MongoDB Connection

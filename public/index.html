@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hair Care Questionnaire</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hair Care Assessment</h1>
+            <p class="subtitle">Answer a few questions to get personalized hair care recommendations</p>
+        </header>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+
+        <!-- Question Container -->
+        <div id="question-container" class="question-container hidden">
+            <div class="progress-bar">
+                <div id="progress" class="progress-fill"></div>
+            </div>
+            
+            <div class="question-card">
+                <h2 id="question-text"></h2>
+                <div id="options-container" class="options-container"></div>
+                <div class="button-group">
+                    <button id="prev-btn" class="btn btn-secondary hidden">Previous</button>
+                    <button id="next-btn" class="btn btn-primary" disabled>Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diagnosis Container -->
+        <div id="diagnosis-container" class="diagnosis-container hidden">
+            <div class="diagnosis-card">
+                <div class="success-icon">✓</div>
+                <h2>Your Hair Care Diagnosis</h2>
+                <h3 id="diagnosis-name"></h3>
+                <p id="diagnosis-description" class="diagnosis-description"></p>
+                
+                <div class="recommendations-section">
+                    <h4>Recommendations</h4>
+                    <ul id="recommendations-list"></ul>
+                </div>
+
+                <div class="products-section">
+                    <h4>Recommended Products</h4>
+                    <ul id="products-list"></ul>
+                </div>
+
+                <div class="severity-badge" id="severity-badge"></div>
+
+                <button id="restart-btn" class="btn btn-primary">Start Over</button>
+            </div>
+        </div>
+
+        <!-- Error Container -->
+        <div id="error-container" class="error-container hidden">
+            <div class="error-card">
+                <h3>Oops! Something went wrong</h3>
+                <p id="error-message"></p>
+                <button id="retry-btn" class="btn btn-primary">Retry</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+

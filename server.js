@@ -11,6 +11,8 @@ const errorHandler = require('./middleware/errorHandler');
 const ruleRoutes = require('./routes/ruleRoutes');
 const evaluateRoutes = require('./routes/evaluateRoutes');
 const questionRoutes = require('./routes/questionRoutes');
+const responseRoutes = require('./routes/responseRoutes');
+const diagnosisRoutes = require('./routes/diagnosisRoutes');
 
 // Initialize Express app
 const app = express();
@@ -26,6 +28,9 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger);
+
+// Serve static files from public directory
+app.use(express.static('public'));
 
 // Swagger Documentation
 const swaggerOptions = {
@@ -68,18 +73,24 @@ app.get('/health', (req, res) => {
 app.use('/api/rules', ruleRoutes);
 app.use('/api/evaluate', evaluateRoutes);
 app.use('/api/questions', questionRoutes);
+app.use('/api/responses', responseRoutes);
+app.use('/api/diagnoses', diagnosisRoutes);
 
-// Root endpoint
-app.get('/', (req, res) => {
+// Root endpoint - serve UI (index.html is served automatically by static middleware)
+// API info available at /api/info
+app.get('/api/info', (req, res) => {
   res.status(200).json({
     message: 'GoRules API',
     version: '1.0.0',
     documentation: '/api-docs',
+    ui: '/',
     endpoints: {
       health: '/health',
       rules: '/api/rules',
       evaluate: '/api/evaluate',
       questions: '/api/questions',
+      responses: '/api/responses',
+      diagnoses: '/api/diagnoses',
       swagger: '/api-docs',
     },
   });

@@ -84,7 +84,7 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const jsonLogic = require('json-logic-js');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 
 const DATA_FILE = path.join(__dirname, 'rules.json');
 
@@ -103,7 +103,7 @@ function loadRules() {
     } else {
       rules = {};
       // bootstrap sample rule
-      const id = uuidv4();
+      const id = crypto.randomUUID();
       rules[id] = {
         id,
         name: 'Sample deliverability rule',
@@ -140,7 +140,7 @@ app.use((req, res, next) => {
 app.post('/rules', (req, res) => {
   const { name, description, rule } = req.body;
   if (!name || !rule) return res.status(400).json({ error: 'name and rule are required' });
-  const id = uuidv4();
+  const id = crypto.randomUUID();
   const now = new Date().toISOString();
   rules[id] = { id, name, description: description || '', rule, createdAt: now, updatedAt: now };
   saveRules();
