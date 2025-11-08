@@ -530,6 +530,7 @@ Questions can be linked using:
 
 - **[Usage Examples](./examples/questionnaire-usage.md)** - Complete examples with curl commands, JavaScript, and Python code
 - **[Sequence Diagrams](./examples/sequence-diagram.md)** - Visual flow diagrams showing user flow, admin management, and API interactions
+- **[Database Schema](./docs/database-schema.md)** - Complete database schema documentation with field descriptions, indexes, and examples
 - **[Sample Questions](./examples/sample-questions.json)** - Sample question data for testing
 
 ## Testing
